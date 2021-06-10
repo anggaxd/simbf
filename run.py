@@ -70,35 +70,6 @@ def bot_komen():
     print(" \033[0;97m[\033[0;92m+\033[0;97m] Login Successfully")
     menu()
 
-def cookie():
-	logo()
-	print("\n \033[0;97m[\033[0;93m*\033[0;97m] How To Get Cookie : https://youtu.be/X7m_O_tZnTc")
-	cookie = raw_input(" \033[0;97m[\033[0;92m+\033[0;97m] Your Cookie : \033[0;96m")
-	try:
-		data = requests.get('https://m.facebook.com/composer/ocelot/async_loader/?publisher=feed#_=_', headers = {
-		   'user-agent'                : 'Mozilla/5.0 (Linux; Android 8.1.0; MI 8 Build/OPM1.171019.011) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.86 Mobile Safari/537.36', # Jangan Di Ganti Ea Anjink.
-		   'referer'                   : 'https://m.facebook.com/',
-		   'host'                      : 'm.facebook.com',
-		   'origin'                    : 'https://m.facebook.com',
-		   'upgrade-insecure-requests' : '1',
-		   'accept-language'           : 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
-		   'cache-control'             : 'max-age=0',
-		   'accept'                    : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-		   'content-type'              : 'text/html; charset=utf-8'
-		}, cookies = {
-		   'cookie'                    : cookie
-		})
-		find_token = re.search('(EAAA\w+)', data.text)
-		hasil    = " \033[0;97m[\033[0;91m!\033[0;97m] Your Cookie Invalid" if (find_token is None) else '\n* Your fb access token : ' + find_token.group(1)
-		cookie = open("login.txt", 'w')
-		cookie.write(find_token.group(1))
-		cookie.close()
-		bot_komen()
-	except requests.exceptions.ConnectionError:
-		exit(' \033[0;97m[\033[0;91m!\033[0;97m] No Connection')
-	if (find_token is None):
-		exit(' \033[0;97m[\033[0;91m!\033[0;97m] Cookie Invalid')
-
 def login():
 	os.system("clear")
 	try:
