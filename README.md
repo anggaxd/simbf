@@ -12,7 +12,7 @@
 ```
 
 # Command
-```bash
+```php
 $ pkg install python2 git
 $ pip2 install requests
 $ git clone https://github.com/anggaxd/simbf
