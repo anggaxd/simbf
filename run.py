@@ -297,7 +297,7 @@ def public():
 			loop += 1
 		except:
 			pass
-	p = ThreadPool(50)
+	p = ThreadPool(30)
 	p.map(main, id)
 	exit("\n \033[0;97m[\033[0;96m#\033[0;97m] Finished")
 
